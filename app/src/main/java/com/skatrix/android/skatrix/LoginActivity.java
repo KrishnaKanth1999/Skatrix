@@ -117,7 +117,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
                                         Toast.makeText(LoginActivity.this, "Mail Verification Link is  Sent.Please Verify and LogIn", Toast.LENGTH_SHORT).show();
-                                       
+
                                     }
                                 });
 

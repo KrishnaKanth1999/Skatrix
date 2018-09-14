@@ -15,14 +15,19 @@
       },
       "oauth_client": [
         {
+          "client_id": "209014712579-6fcfhbv67s8lvpfjs749pjnlc23i22nm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.skatrix.android.skatrix",
+            "certificate_hash": "5453fa6e69ae3f3da13f2bff12df06a94a3bf42c"
+          }
+        },
+        {
           "client_id": "209014712579-0ekiha68cr4srnd1tgkpsnvlur0emir4.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
-        {
-          "current_key": "AIzaSyBWgDZKLZ9ukeQA1RzxjHozTAfxLCd7vls"
-        },
         {
           "current_key": "AIzaSyBWgDZKLZ9ukeQA1RzxjHozTAfxLCd7vls"
         }
@@ -32,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "209014712579-0ekiha68cr4srnd1tgkpsnvlur0emir4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2
