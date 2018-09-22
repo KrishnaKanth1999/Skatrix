@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 public class AboutUs extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
+    private  BottomNavigationView bottomNav;
     AlertDialog.Builder builder;
     @Override
 
@@ -28,7 +29,7 @@ public class AboutUs extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_aboutus);
 
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setSelectedItemId(R.id.nav_aboutus);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
@@ -76,6 +77,7 @@ public class AboutUs extends AppCompatActivity {
                                             dialog.cancel();
                                             Toast.makeText(getApplicationContext(),"you choose no action for alertbox",
                                                     Toast.LENGTH_SHORT).show();
+                                            bottomNav.setSelectedItemId(R.id.nav_aboutus);
                                         }
                                     });
                             AlertDialog alert = builder.create();

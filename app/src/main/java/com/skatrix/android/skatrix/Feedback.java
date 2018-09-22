@@ -27,24 +27,24 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class Feedback extends AppCompatActivity {
     private Activity activity;
-
-    private FirebaseAuth firebaseAuth;
+    private BottomNavigationView bottomNav;
+    private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     AlertDialog.Builder builder;
+
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragement_feedback);
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setSelectedItemId(R.id.nav_feedback);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
 
-        final EditText your_name        = (EditText) findViewById(R.id.your_name);
-        final EditText your_email       = (EditText) findViewById(R.id.your_email);
-        final EditText your_subject     = (EditText) findViewById(R.id.your_subject);
-        final EditText your_message     = (EditText) findViewById(R.id.your_message);
-
+        final EditText your_name = (EditText) findViewById(R.id.your_name);
+        final EditText your_email = (EditText) findViewById(R.id.your_email);
+        final EditText your_subject = (EditText) findViewById(R.id.your_subject);
+        final EditText your_message = (EditText) findViewById(R.id.your_message);
 
 
         Button email = (Button) findViewById(R.id.post_message);
@@ -52,11 +52,11 @@ public class Feedback extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String name      = your_name.getText().toString();
-                String email     = your_email.getText().toString();
-                String subject   = your_subject.getText().toString();
-                String message   = your_message.getText().toString();
-                if (TextUtils.isEmpty(name)){
+                String name = your_name.getText().toString();
+                String email = your_email.getText().toString();
+                String subject = your_subject.getText().toString();
+                String message = your_message.getText().toString();
+                if (TextUtils.isEmpty(name)) {
                     your_name.setError("Enter Your Name");
                     your_name.requestFocus();
                     return;
@@ -69,13 +69,13 @@ public class Feedback extends AppCompatActivity {
                     return;
                 }
 
-                if (TextUtils.isEmpty(subject)){
+                if (TextUtils.isEmpty(subject)) {
                     your_subject.setError("Enter Your Subject");
                     your_subject.requestFocus();
                     return;
                 }
 
-                if (TextUtils.isEmpty(message)){
+                if (TextUtils.isEmpty(message)) {
                     your_message.setError("Enter Your Message");
                     your_message.requestFocus();
                     return;
@@ -85,10 +85,10 @@ public class Feedback extends AppCompatActivity {
 
                 /* Fill it with Data */
                 sendEmail.setType("plain/text");
-                sendEmail.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{"dr.m.karthiik@gmail.com"});
+                sendEmail.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{"krishnakanthkrrish1@gmail.com"});
                 sendEmail.putExtra(android.content.Intent.EXTRA_SUBJECT, subject);
                 sendEmail.putExtra(android.content.Intent.EXTRA_TEXT,
-                        "name:"+name+'\n'+"Email ID:"+email+'\n'+"Message:"+'\n'+message);
+                        "name:" + name + '\n' + "Email ID:" + email + '\n' + "Message:" + '\n' + message);
 
                 /* Send it off to the Activity-Chooser */
                 startActivity(Intent.createChooser(sendEmail, "Send mail..."));
@@ -96,7 +96,7 @@ public class Feedback extends AppCompatActivity {
 
             }
         });
-}
+    }
     @Override
     public void onResume() {
         super.onResume();
@@ -128,8 +128,8 @@ public class Feedback extends AppCompatActivity {
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
     }
-    private BottomNavigationView.OnNavigationItemSelectedListener navListener =
-            new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+    private BottomNavigationView.OnNavigationItemSelectedListener navListener =new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
@@ -140,7 +140,6 @@ public class Feedback extends AppCompatActivity {
                             //starting login activity
                             startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
                             break;
-
                         case R.id.nav_aboutus:
                             finish();
                             //starting login activity
@@ -171,12 +170,14 @@ public class Feedback extends AppCompatActivity {
                                             dialog.cancel();
                                             Toast.makeText(getApplicationContext(),"you choose no action for alertbox",
                                                     Toast.LENGTH_SHORT).show();
+                                            bottomNav.setSelectedItemId(R.id.nav_feedback);
                                         }
                                     });
                             AlertDialog alert = builder.create();
                             //Setting the title manually
                             alert.setTitle("AlertDialogExample");
                             alert.show();
+
                     }
 
 

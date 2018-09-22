@@ -1,6 +1,9 @@
 package com.skatrix.android.skatrix;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.journeyapps.barcodescanner.CaptureActivity;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -9,6 +12,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -28,6 +32,7 @@ import com.google.zxing.integration.android.IntentResult;
 public class ProfileActivity extends AppCompatActivity  {
 
     //firebase auth object
+   public String uniq;
     private FirebaseAuth firebaseAuth;
     AlertDialog.Builder builder;
     private Button scan_btn;
@@ -37,6 +42,8 @@ public class ProfileActivity extends AppCompatActivity  {
     private DatabaseReference mDatabase;
     private Button aboutbutton;
     private Button feedbutton;
+
+// ...
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +69,26 @@ public class ProfileActivity extends AppCompatActivity  {
 
         //getting current user
         FirebaseUser user = firebaseAuth.getCurrentUser();
+        ValueEventListener postListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Get Post object and use the values to update the UI
+                SkateboardKey post = dataSnapshot.getValue(SkateboardKey.class);
+                uniq=post.Skateboard1;
+                Log.w("Helloooooo", String.valueOf(uniq));
+                Log.w("fuck u",String.valueOf(uniq));
+                // ...
+            }
 
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.w("fuck u" ,"loadPost:onCancelled", databaseError.toException());
+                // ...
+            }
+        };
+        mDatabase = FirebaseDatabase.getInstance().getReference("");
+        mDatabase.addValueEventListener(postListener);
 //        //initializing views
 //        textViewUserEmail = (TextView) findViewById(R.id.textViewUserEmail);
 //        buttonLogout = (Button) findViewById(R.id.buttonLogout);
@@ -101,9 +127,16 @@ public class ProfileActivity extends AppCompatActivity  {
             }
             else {
                 Toast.makeText(this, result.getContents(),Toast.LENGTH_LONG).show();
-                mDatabase = FirebaseDatabase.getInstance().getReference("path");
-                finish();
-                startActivity(new Intent(this, ControlsActivity.class));
+
+                if(new String(uniq).equals(result.getContents()) ) {
+                    finish();
+                    startActivity(new Intent(getApplicationContext(), Feedback.class));
+                }
+                else
+                {
+                    Log.w("hiiiiiiiiiii",String.valueOf(uniq));
+                }
+
             }
         }
         else {
