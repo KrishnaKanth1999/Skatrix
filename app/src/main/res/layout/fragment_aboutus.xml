@@ -6,21 +6,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.skatrix.android.skatrix.MainActivity">
 
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="QRCode Scanner"
-        android:textSize="25dp"
-        android:layout_centerHorizontal="true"/>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="SCAN"
-        android:id="@+id/scan_btn"/>
-
+        android:text="Aboutus Fragment"
+        android:textSize="30sp"
+        android:layout_centerInParent="true"/>
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottom_navigation"
@@ -28,6 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         app:menu="@menu/activity_nav_drawer"
-        app:itemTextColor="@color/colorBlue"
-        android:background="?android:attr/windowBackground"/>
+        android:background="?android:attr/windowBackground"
+        />
+
 </RelativeLayout>

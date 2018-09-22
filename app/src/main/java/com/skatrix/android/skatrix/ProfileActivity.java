@@ -3,19 +3,25 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.journeyapps.barcodescanner.CaptureActivity;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 
-        import android.content.Intent;
-        import android.support.v7.app.AppCompatActivity;
-        import android.os.Bundle;
-        import android.view.View;
-        import android.widget.Button;
-        import android.widget.TextView;
+import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
-        import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
@@ -23,21 +29,28 @@ public class ProfileActivity extends AppCompatActivity  {
 
     //firebase auth object
     private FirebaseAuth firebaseAuth;
+    AlertDialog.Builder builder;
     private Button scan_btn;
     //view objects
     private TextView textViewUserEmail;
     private Button buttonLogout;
     private DatabaseReference mDatabase;
-
+    private Button aboutbutton;
+    private Button feedbutton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        bottomNav.setSelectedItemId(R.id.nav_home);
+        bottomNav.setOnNavigationItemSelectedListener(navListener);
         //initializing firebase authentication object
         firebaseAuth = FirebaseAuth.getInstance();
-
+//        aboutbutton = (Button) findViewById(R.id.nav_aboutus);
+//        feedbutton = (Button) findViewById(R.id.nav_feedback);
+//        aboutbutton.setOnClickListener((View.OnClickListener) this);
+//        feedbutton.setOnClickListener((View.OnClickListener) this);
         //if the user is not logged in
         //that means current user will return null
         if(firebaseAuth.getCurrentUser() == null){
@@ -97,18 +110,79 @@ public class ProfileActivity extends AppCompatActivity  {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
-//    @Override
-//    public void onClick(View view) {
-//        //if logout is pressed
-////        if(view == buttonLogout){
-////            //logging out the user
-////            firebaseAuth.signOut();
-////            //closing activity
-////            finish();
-////            //starting login activity
-////            startActivity(new Intent(this, LoginActivity.class));
+
+    public void onClick(View view) {
+//        if logout is pressed
+        if (view == buttonLogout) {
+            //logging out the user
+            firebaseAuth.signOut();
+            //closing activity
+            finish();
+            //starting login activity
+            startActivity(new Intent(this, LoginActivity.class));
+
+        }
+    }
+
+    private BottomNavigationView.OnNavigationItemSelectedListener navListener =
+            new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+
+                    switch (item.getItemId()) {
+
+                        case R.id.nav_feedback:
+                            finish();
+                            //starting login activity
+                            startActivity(new Intent(getApplicationContext(), Feedback.class));
+                            break;
+                        case R.id.nav_aboutus:
+                            finish();
+                            //starting login activity
+                            startActivity(new Intent(getApplicationContext(), AboutUs.class));
+                            break;
+
+                        case R.id.nav_logout:
+                            builder = new AlertDialog.Builder(ProfileActivity.this);
+
+
+                            //Setting message manually and performing action on button click
+                            builder.setMessage("Do you want to LogOut ?")
+                                    .setCancelable(false)
+                                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+
+                                            firebaseAuth.signOut();
+                                            //closing activity
+                                            finish();
+                                            //starting login activity
+                                            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                                            Toast.makeText(getApplicationContext(),"Successfully loggedOut",
+                                                    Toast.LENGTH_SHORT).show();
+                                        }
+                                    })
+                                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            //  Action for 'NO' Button
+                                            dialog.cancel();
+                                            Toast.makeText(getApplicationContext(),"you choose no action for alertbox",
+                                                    Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                            AlertDialog alert = builder.create();
+                            //Setting the title manually
+                            alert.setTitle("AlertDialogExample");
+                            alert.show();
+                    }
+
+
+
+                    return true;
+                }
+            };
+
 
 
 
 }
-
