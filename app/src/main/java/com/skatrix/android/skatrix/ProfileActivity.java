@@ -83,7 +83,7 @@ public class ProfileActivity extends AppCompatActivity  {
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 // Getting Post failed, log a message
-                Log.w("fuck u" ,"loadPost:onCancelled", databaseError.toException());
+                //Log.w("hi" ,"loadPost:onCancelled", databaseError.toException());
                 // ...
             }
         };
@@ -126,11 +126,11 @@ public class ProfileActivity extends AppCompatActivity  {
                 Toast.makeText(this, "You cancelled the scanning", Toast.LENGTH_LONG).show();
             }
             else {
-                Toast.makeText(this, result.getContents(),Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, result.getContents(),Toast.LENGTH_LONG).show();
 
                 if(new String(uniq).equals(result.getContents()) ) {
                     finish();
-                    startActivity(new Intent(getApplicationContext(), Feedback.class));
+                    startActivity(new Intent(getApplicationContext(), ControlsActivity.class));
                 }
                 else
                 {
@@ -169,15 +169,19 @@ public class ProfileActivity extends AppCompatActivity  {
                             finish();
                             //starting login activity
                             startActivity(new Intent(getApplicationContext(), Feedback.class));
+
+                            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                             break;
                         case R.id.nav_aboutus:
                             finish();
                             //starting login activity
                             startActivity(new Intent(getApplicationContext(), AboutUs.class));
+                            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                             break;
 
                         case R.id.nav_logout:
                             builder = new AlertDialog.Builder(ProfileActivity.this);
+
 
 
                             //Setting message manually and performing action on button click
@@ -191,6 +195,7 @@ public class ProfileActivity extends AppCompatActivity  {
                                             finish();
                                             //starting login activity
                                             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+
                                             Toast.makeText(getApplicationContext(),"Successfully loggedOut",
                                                     Toast.LENGTH_SHORT).show();
                                         }

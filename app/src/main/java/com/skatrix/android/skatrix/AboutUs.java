@@ -34,6 +34,11 @@ public class AboutUs extends AppCompatActivity {
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
     }
+
+    public void onBackPressed() {
+        finish();
+        startActivity(new Intent(this,ProfileActivity.class));
+    }
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
@@ -45,11 +50,13 @@ public class AboutUs extends AppCompatActivity {
                             finish();
                             //starting login activity
                             startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                             break;
                         case R.id.nav_feedback:
                             finish();
                             //starting login activity
                             startActivity(new Intent(getApplicationContext(), Feedback.class));
+                            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                             break;
 
                         case R.id.nav_logout:

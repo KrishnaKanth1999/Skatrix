@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.skatrix.android.skatrix">
 
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
 
@@ -19,7 +21,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity"  />
+        <activity android:name=".LoginActivity" />
         <activity android:name=".ProfileActivity" />
         <activity
             android:name=".AnyOrientationCaptureActivity"
@@ -27,9 +29,13 @@
             android:stateNotNeeded="true"
             android:theme="@style/zxing_CaptureTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity android:name=".ControlsActivity" />
-        <activity android:name=".AboutUs"  />
+        <activity android:name=".ControlsActivity" android:theme="@style/Theme.AppCompat.Light.DarkActionBar"/>
+        <activity android:name=".AboutUs" />
         <activity android:name=".Feedback" />
+        <activity android:name=".DeviceList"
+            android:label="@string/select_device"
+            android:theme="@android:style/Theme.Holo.Light.Dialog"
+            android:configChanges="orientation|keyboardHidden" />
     </application>
 
 </manifest>

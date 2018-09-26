@@ -117,6 +117,11 @@ public class Feedback extends AppCompatActivity {
 
     }
 
+    public void onBackPressed() {
+        finish();
+        startActivity(new Intent(this,ProfileActivity.class));
+    }
+
 
     // validating email id
 
@@ -139,11 +144,13 @@ public class Feedback extends AppCompatActivity {
                             finish();
                             //starting login activity
                             startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                             break;
                         case R.id.nav_aboutus:
                             finish();
                             //starting login activity
                             startActivity(new Intent(getApplicationContext(), AboutUs.class));
+                            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                             break;
                         case R.id.nav_logout:
                             builder = new AlertDialog.Builder(Feedback.this);

@@ -158,6 +158,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+
     @Override
     public void onClick(View view) {
 
@@ -167,7 +168,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if(view == textViewSignin){
             //open login activity when user taps on the already registered textview
+
+
+
             startActivity(new Intent(this, LoginActivity.class));
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }
 
     }
